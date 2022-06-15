@@ -23,9 +23,8 @@ router.post("/login", async(req, res) => {
             }
         } else {
             searchParams = {
-                owner: {
-                    username: req.body.data.username,
-                }
+                "owner.username": req.body.data.username,
+
             };
             var users = await shopdb.find(searchParams);
             if (users.length > 0) {
