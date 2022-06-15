@@ -42,8 +42,6 @@ app.use("/api", authRoutes);
 app.use("/api/image", imageRoutes);
 app.use("/api/admin", adminRoutes);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-
 app.listen(port, (req, res) => {
     console.log("Node on " + port + ", " + process.env.NODE_ENV + " environment");
 });
