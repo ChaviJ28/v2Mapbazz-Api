@@ -4,8 +4,6 @@ let express = require("express"),
     bcrypt = require("bcrypt"),
     cors = require("cors"),
     mongoose = require("mongoose"),
-    swaggerUi = require('swagger-ui-express'),
-    swaggerDocument = require("./app.js"), //error with ./swagger.json
     path = require("path");
 
 
