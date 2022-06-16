@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { object } = require("webidl-conversions");
 
 var shopSchema = mongoose.Schema({
     brand_name: String,
@@ -17,7 +16,9 @@ var shopSchema = mongoose.Schema({
     },
     contact: Object,
     banner: [String],
-    category: [String],
+    category: [
+        {type: mongoose.Schema.Types.ObjectId, ref: 'Category'}
+    ],
 });
 
 module.exports = mongoose.model("shop", shopSchema);

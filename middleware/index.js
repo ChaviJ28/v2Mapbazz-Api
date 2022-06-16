@@ -93,38 +93,21 @@ exports.checkAdminAuth = async(req, res, next) => {
     }
 };
 
+
+//avan create owner/user
 exports.usernameExists = async(req, res, next) => {
     if (req.body.data && req.body.data.shop && req.body.data.shop.username) {
-        var username = req.body.data.shop.username;
-        var sql = "SELECT * FROM shop_owner WHERE username = '" + username + "';";
-        connection.query(sql, async(err, results) => {
-            if (err) {
-                res.status(500).json({ error: err });
-            } else {
-                console.log(results)
-                if (results.length == 0) {
-                    next();
-                } else {
-                    res.status(400).json({ error: "Username Taken" });
-                }
-            }
-        })
-    }
-    if (req.body.data && req.body.data.username) {
-        var username = req.body.data.username;
-        var sql =
-            "SELECT * FROM user WHERE username = '" + username + "';";
-        connection.query(sql, async(err, results) => {
-            if (err) {
-                res.status(500).json({ error: err });
-            } else {
-                if (results.length == 0) {
-                    next();
-                } else {
-                    res.status(400).json({ error: "Username Taken" });
-                }
-            }
-        });
+        var searchData = {
+            "owner.username": req.body.data.shop.username
+        }
+        var records = await shopdb.find(searchData);
+        if (results.length > 0) {
+            //check pu user
+            //si user si zero, lerla ==
+            // res.status(400).json({ error: "Username Taken" });
+        }else{
+            next();
+        }
     }
 }
 

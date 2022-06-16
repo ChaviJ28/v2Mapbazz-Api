@@ -1,23 +1,25 @@
 const mongoose = require("mongoose");
-const { object } = require("webidl-conversions");
 
-var shopSchema = mongoose.Schema({
-    brand_name: String,
-    trade_name: String,
-    creadted_on: { type: Date, default: Date.now },
-    logo: String,
-    color: String,
-    is_active: Boolean,
-    subscription_type: String,
-    owner: {
-        username: String,
-        pwd: String,
-        name: String,
-        login_count: { type: Number, default: 0 },
-    },
-    contact: Object,
-    banner: [String],
-    category: [String],
+var productSchema = mongoose.Schema({
+    title: String,
+    description: String,
+    price: Number,
+    discount: Number,
+    colors: [String],
+    images: [
+        {
+            url: String,
+            color: String
+        }
+    ],
+    stock: Number,
+    shown: {type: Boolean, default: false},
+    size: [String],
+    category: [
+        {type: mongoose.Schema.Types.ObjectId, ref: 'Category'}
+    ],
+    shop: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop' },
+    creadted_on: { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model("shop", shopSchema);
+module.exports = mongoose.model("product", productSchema);

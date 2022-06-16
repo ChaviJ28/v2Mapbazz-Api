@@ -48,7 +48,7 @@ router.post("/login", async(req, res) => {
     }
 });
 
-
+//bzn met usermiddleware ici
 router.post("/change-password", async(req, res) => {
     try {
         var searchParams = {

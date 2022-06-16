@@ -81,7 +81,7 @@ router.post("/update-shop", middleware.checkOwnerAuth, async(req, res) => {
     }
 });
 
-router.post("/get-status", checkOwnerAuth, async(req, res) => {
+router.post("/get-status", async(req, res) => {
     try {
         if (req.body.data && req.body.data.id) {
             var searchData = {
@@ -101,6 +101,7 @@ router.post("/get-status", checkOwnerAuth, async(req, res) => {
     }
 });
 
+//faire 1 check aussi pu checker sipa tou fill in, sinn beze err ki pa cav update !
 router.post("/update-status", middleware.checkAdminAuth, async(req, res) => {
     try {
         if (req.body.data && req.body.data.id) {
@@ -118,3 +119,5 @@ router.post("/update-status", middleware.checkAdminAuth, async(req, res) => {
         res.status(500).json({ error: err });
     }
 });
+
+module.exports = router;

@@ -37,10 +37,16 @@ app.use(middleware.checkApiKey);
 const authRoutes = require("./routes/auth.js");
 const imageRoutes = require("./routes/image.js");
 const adminRoutes = require("./routes/admin.js");
+const categoryRoutes = require("./routes/category.js");
+const shopRoutes = require("./routes/shop.js");
+const productRoutes = require("./routes/product.js");
 
 app.use("/api", authRoutes);
 app.use("/api/image", imageRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/category", categoryRoutes);
+app.use("/api/shop", shopRoutes);
+app.use("/api/product", productRoutes);
 
 app.listen(port, (req, res) => {
     console.log("Node on " + port + ", " + process.env.NODE_ENV + " environment");
