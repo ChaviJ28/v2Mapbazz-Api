@@ -25,9 +25,7 @@ exports.checkUserAuth = async(req, res, next) => {
             }
         } else if (req.body.auth.user.access_type == "owner") {
             var searchParams = {
-                owner: {
-                    username: req.body.auth.user.username,
-                },
+                "owner.username": req.body.auth.user.username,
             };
             var users = await shopdb.find(searchParams);
             if (users.length > 0) {
@@ -59,9 +57,7 @@ exports.checkOwnerAuth = async(req, res, next) => {
             }
         } else if (req.body.auth.user.access_type == "owner") {
             var searchParams = {
-                owner: {
-                    username: req.body.auth.user.username,
-                },
+                "owner.username": req.body.auth.user.username,
             };
             var users = await shopdb.find(searchParams);
             if (users.length > 0) {
