@@ -74,7 +74,7 @@ router.post("/update-product",middleware.checkOwnerAuth, async(req, res) => {
   try {
     if (req.body.data && req.body.data.id) {
         var searchData = {
-            id: req.body.data.id,
+            _id: req.body.data.id,
         };
         var insertData = req.body.data.updateData;
 
@@ -93,7 +93,7 @@ router.post("/is-show", async(req, res) => {
   try {
     if (req.body.data && req.body.data.id) {
         var searchData = {
-            id: req.body.data.id,
+            _id: req.body.data.id,
         };
         var products = await productdb.find(searchData);
         if (products.length > 0) {
@@ -115,7 +115,7 @@ router.post("/set-show", middleware.checkOwnerAuth, async(req, res) => {
   try {
     if (req.body.data && req.body.data.id) {
         var searchData = {
-            id: req.body.data.id,
+            _id: req.body.data.id,
         };
         var insertData = { shown: req.body.data.status };
         await productdb.updateOne(searchData, insertData);

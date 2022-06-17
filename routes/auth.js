@@ -158,10 +158,10 @@ async function verifyPasswords(old, p1, p2, current) {
 
 async function incrementLoginCount(db, id) {
     try {
-        var records = await db.find({ id: id });
+        var records = await db.find({ _id: id });
         var record = records[0].toObject();
         var newCount = record.owner.login_count + 1;
-        db.updateOne({ id: id }, { owner: { login_count: newCount } })
+        db.updateOne({ _id: id }, { owner: { login_count: newCount } })
     } catch (err) {
         console.log(err);
         res.status(500).json({ error: "incrementLoginCount() err" });

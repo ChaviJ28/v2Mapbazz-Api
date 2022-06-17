@@ -57,7 +57,7 @@ router.post("/list-order", middleware.checkUserAuth, async(req, res) => {
 //by shop owner la  
 router.post("/list-owner-orders", middleware.checkOwnerAuth, async(req, res) => {
   if (req.body.data.id) {
-    var orders = await orderdb.find({id: req.body.data.id}).populate('products');
+    var orders = await orderdb.find({_id: req.body.data.id}).populate('products');
     res.json({data: orders})
 
   }
@@ -65,7 +65,7 @@ router.post("/list-owner-orders", middleware.checkOwnerAuth, async(req, res) => 
 
 
 async function getProductPrice(id) {
-  var products = await productdb.find({id: id})
+  var products = await productdb.find({_id: id})
   if(products.length > 0){
     var product = products[0];
     if( product.discount == 0){

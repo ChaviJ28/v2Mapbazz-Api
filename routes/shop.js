@@ -87,7 +87,7 @@ router.post("/get-status", async(req, res) => {
     try {
         if (req.body.data && req.body.data.id) {
             var searchData = {
-                id: req.body.data.id,
+                _id: req.body.data.id,
             };
             var shops = await shopdb.find(searchData);
             if (shops.length > 0) {
@@ -110,7 +110,7 @@ router.post("/update-status", middleware.checkAdminAuth, async(req, res) => {
     try {
         if (req.body.data && req.body.data.id) {
             var searchData = {
-                id: req.body.data.id,
+                _id: req.body.data.id,
             };
             var insertData = { is_active: req.body.data.status };
             await shopdb.updateOne(searchData, insertData);

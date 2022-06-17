@@ -39,7 +39,7 @@ router.post("/update-category", middleware.checkAdminAuth, async(req, res) => {
     try {
         if (req.body.data && req.body.data.title) {
             var searchData = {
-                id: req.body.data.id,
+                _id: req.body.data.id,
             };
             var insertData = {
                 title: req.body.data.title,
