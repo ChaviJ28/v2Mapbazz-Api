@@ -17,7 +17,7 @@ router.post("/add-product", middleware.checkOwnerAuth, async(req, res) => {
         var obj = {
           id: cat
         }
-        categories.push(onj)
+        categories.push(obj)
       })
         var insertData = {
                 title: req.body.data.title,
@@ -56,7 +56,7 @@ router.post("/list-product", async(req, res) => {
         var searchParams = { shown: true };
     }
     if(req.body.data.populate == true){
-      var products = await productdb.find(searchParams).populate('category').populate('shop')
+      var products = await productdb.find(searchParams).populate('Category').populate('shop')
     } else {
       var products = await productdb.find(searchParams).populate('category')
     }
