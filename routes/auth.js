@@ -53,7 +53,7 @@ router.post("/login", async(req, res) => {
 router.post("/register", async(req, res) => {
     try {
         if(req.body.data){
-            if(req.body.data.pass1.toString().equals(req.body.data.pass2.toString())){
+            if(req.body.data.pass1 === req.body.data.pass2){
                 var insertData = {
                     username: req.body.data.username,
                     fullname: req.body.data.fullname,
@@ -87,12 +87,12 @@ router.post("/change-password", middleware.checkUserAuth,  async(req, res) => {
         var searchParams = {
             username: req.body.data.username
         }
-        if (req.body.auth.user.access_type.equals("admin")) {
+        if (req.body.auth.user.access_type === "admin") {
             var records = await admindb.find(searchParams);
             if (records[0]) {
                 var admin = records[0].toObject();
                 var verified = await verifyPasswords(req.body.data.oldpassword, req.body.data.pass1, req.body.data.pass2, admin.pwd);
-                if (verified.equals("success")) {
+                if (verified === "success") {
                     await admindb.updateOne(searchParams, { pwd: bcrypt.hashSync(req.body.data.pass1, parseInt(process.env.HASH_SALT)) });
                 } else {
                     res.status(400).json({ error: verified });
@@ -100,7 +100,7 @@ router.post("/change-password", middleware.checkUserAuth,  async(req, res) => {
             } else {
                 res.status(400).json({ error: "User does not exist" });
             }
-        } else if (req.body.auth.user.access_type.equals("owner")) {
+        } else if (req.body.auth.user.access_type === "owner") {
             searchParams = {
                 "owner.username": req.body.data.username
             };
@@ -108,7 +108,7 @@ router.post("/change-password", middleware.checkUserAuth,  async(req, res) => {
             if (records[0]) {
                 var shop = records[0].toObject();
                 var verified = await verifyPasswords(req.body.data.oldpassword, req.body.data.pass1, req.body.data.pass2, shop.owner.pwd);
-                if (verified.equals("success")) {
+                if (verified === "success") {
                     await shopdb.updateOne(searchParams, { owner: { pwd: bcrypt.hashSync(req.body.data.pass1, parseInt(process.env.HASH_SALT)) } });
                 } else {
                     res.status(400).json({ error: verified });
@@ -116,13 +116,13 @@ router.post("/change-password", middleware.checkUserAuth,  async(req, res) => {
             } else {
                 res.status(400).json({ error: "User does not exist" });
             }
-        } else if (req.body.auth.user.access_type.equals("user")) {
+        } else if (req.body.auth.user.access_type === "user") {
             //user find
             var records = await userdb.find(searchParams);
             if (records[0]) {
                 var user = records[0].toObject();
                 var verified = await verifyPasswords(req.body.data.oldpassword, req.body.data.pass1, req.body.data.pass2, user.pwd);
-                if (verified.equals("success")) {
+                if (verified === "success") {
                     await userdb.updateOne(searchParams, { pwd: bcrypt.hashSync(req.body.data.pass1, parseInt(process.env.HASH_SALT)) });
                 } else {
                     res.status(400).json({ error: verified });
@@ -141,7 +141,7 @@ router.post("/change-password", middleware.checkUserAuth,  async(req, res) => {
 
 async function verifyPasswords(old, p1, p2, current) {
     try {
-        if (p1.toString().equals(p2.toString())) {
+        if (p1 === p2) {
             if (bcrypt.compareSync(old, current)) {
                 return "success"
             } else {
