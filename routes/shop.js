@@ -50,9 +50,10 @@ router.post("/list-shop", async(req, res) => {
             arr = [];
         shops.forEach((shop) => {
             shop = shop.toObject();
-            if (req.body.data.populate) {} else {
-                delete shop.owner;
+            if (req.body.data.populate) {
                 delete shop.owner.pwd;
+            } else {
+                delete shop.owner;
             }
             arr.push(shop);
         });
