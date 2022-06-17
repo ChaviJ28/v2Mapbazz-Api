@@ -25,6 +25,22 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
       }
   });
 
+  router.post("/list-cart", middleware.checkUserAuth, async(req, res) => {
+    try {
+        if (req.body.data) {
+          var searchParams = req.body.auth.user.id;
+          var user = await userdb.find(searchParams).populate('product');
+          user = user[0].toObject();
+          res.status(200).json({ data: user.cart });
+        } else {
+            res.status(400).json({ error: "corrupt date, try again" });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Please Try Again later" });
+    }
+});
+
 
   //geuter sipa li retourne 1 id r cart la,lerla faire accordingly !
   //pancr faire sa la !
