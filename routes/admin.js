@@ -18,6 +18,8 @@ router.post("/add-admin", middleware.checkAdminAuth, async(req, res) => {
             };
             await admindb.create(insertData);
             res.status(200).json({ success: "admin added" });
+        } else {
+            res.status(400).json({ error: "corrupt date, try again" });
         }
     } catch (err) {
         console.log(err)

@@ -11,6 +11,8 @@ router.post("/add-category", middleware.checkAdminAuth, async(req, res) => {
             };
             await categorydb.create(insertData);
             res.status(200).json({ success: "category added" });
+        } else {
+            res.status(400).json({ error: "corrupt date, try again" });
         }
     } catch (err) {
         console.log(err);
@@ -44,6 +46,8 @@ router.post("/update-category", middleware.checkAdminAuth, async(req, res) => {
             };
             await categorydb.updateOne(searchData, insertData);
             res.status(200).json({ success: "category updated" });
+        } else {
+            res.status(400).json({ error: "corrupt date, try again" });
         }
     } catch (err) {
         console.log(err);

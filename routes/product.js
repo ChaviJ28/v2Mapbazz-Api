@@ -36,6 +36,8 @@ router.post("/add-product", middleware.checkOwnerAuth, async(req, res) => {
         };
         await productdb.create(insertData);
         res.status(200).json({ success: "product addded" });
+      } else {
+        res.status(400).json({ error: "corrupt date, try again" });
     }
   } catch (err) {
       console.log(err);
@@ -100,6 +102,8 @@ router.post("/is-show", async(req, res) => {
         } else {
             res.status(500).json({ error: "id not found" });
         }
+      } else {
+        res.status(400).json({ error: "corrupt date, try again" });
     }
   } catch (err) {
       console.log(err);
