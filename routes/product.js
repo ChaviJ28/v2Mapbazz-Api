@@ -30,9 +30,7 @@ router.post("/add-product", middleware.checkOwnerAuth, async(req, res) => {
                 shown: false,
                 size: req.body.data.size,
                 category: categories,
-                shop: {
-                  id: req.body.data.shopid
-                }
+                shop: req.body.data.shopid
         };
         await productdb.create(insertData);
         res.status(200).json({ success: "product addded" });
