@@ -64,7 +64,7 @@ router.post("/list-owner-orders", middleware.checkOwnerAuth, async(req, res) => 
 })
 
 
-function getProductPrice(id) {
+async function getProductPrice(id) {
   var products = await productdb.find({id: id})
   if(products.length > 0){
     var product = products[0];
@@ -77,3 +77,5 @@ function getProductPrice(id) {
     return 'err'
   }
 }
+
+module.exports = router;

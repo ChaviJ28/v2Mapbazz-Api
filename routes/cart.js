@@ -64,3 +64,5 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
         res.status(500).json({ error: "Please Try Again later" });
     }
 });
+
+module.exports = router;

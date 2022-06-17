@@ -40,6 +40,9 @@ const adminRoutes = require("./routes/admin.js");
 const categoryRoutes = require("./routes/category.js");
 const shopRoutes = require("./routes/shop.js");
 const productRoutes = require("./routes/product.js");
+const userRoutes = require("./routes/user.js");
+const cartRoutes = require("./routes/cart.js");
+const orderRoutes = require("./routes/order.js");
 
 app.use("/api", authRoutes);
 app.use("/api/image", imageRoutes);
@@ -47,6 +50,9 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/shop", shopRoutes);
 app.use("/api/product", productRoutes);
+app.use("/api/user", userRoutes);
+app.use("/api/user", cartRoutes);
+app.use("/api/order", orderRoutes);
 
 app.listen(port, (req, res) => {
     console.log("Node on " + port + ", " + process.env.NODE_ENV + " environment");

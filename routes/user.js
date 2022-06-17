@@ -53,3 +53,5 @@ let express = require("express"),
 
 
 //get-status of user
+
+module.exports = router;
