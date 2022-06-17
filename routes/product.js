@@ -48,8 +48,7 @@ router.post("/list-product", async(req, res) => {
     if (req.body.data.search) {
         var searchParams = req.body.data.search
         if (
-            searchParams.hasOwnProperty("shown") &&
-            req.body.data.populate
+            searchParams.hasOwnProperty("shown")
         ) {} else {
             searchParams["shown"] = true;
         };
