@@ -52,7 +52,7 @@ router.post("/list-shop", async(req, res) => {
             shop = shop.toObject();
             if (req.body.data.populate) {} else {
                 delete shop.owner;
-                delete shop.login_count;
+                delete shop.owner.pwd;
             }
             arr.push(shop);
         });
