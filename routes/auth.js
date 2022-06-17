@@ -53,7 +53,7 @@ router.post("/login", async(req, res) => {
 router.post("/register", async(req, res) => {
     try {
         if(req.body.data){
-            if(req.body.data.pass1.equals(req.body.data.pass2)){
+            if(req.body.data.pass1.toString().equals(req.body.data.pass2.toString())){
                 var insertData = {
                     username: req.body.data.username,
                     fullname: req.body.data.fullname,
