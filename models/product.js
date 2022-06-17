@@ -16,7 +16,7 @@ var productSchema = mongoose.Schema({
     shown: {type: Boolean, default: false},
     size: [String],
     category: [
-        {type: mongoose.Schema.Types.ObjectId, ref: 'Category'}
+        {type: mongoose.Schema.Types.ObjectId, ref: 'category'}
     ],
     shop: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop' },
     creadted_on: { type: Date, default: Date.now }

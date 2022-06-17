@@ -50,7 +50,7 @@ router.post("/list-product", async(req, res) => {
         var searchParams = { shown: true };
     }
     if(req.body.data.populate == true){
-      var products = await productdb.find(searchParams).populate('Category').populate('shop')
+      var products = await productdb.find(searchParams).populate('category').populate('shop')
     } else {
       var products = await productdb.find(searchParams).populate('category')
     }
