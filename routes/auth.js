@@ -141,7 +141,7 @@ router.post("/change-password", middleware.checkUserAuth,  async(req, res) => {
 
 async function verifyPasswords(old, p1, p2, current) {
     try {
-        if (p1.equals(p2)) {
+        if (p1.toString().equals(p2.toString())) {
             if (bcrypt.compareSync(old, current)) {
                 return "success"
             } else {
