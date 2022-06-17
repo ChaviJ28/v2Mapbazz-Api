@@ -10,12 +10,7 @@ let express = require("express"),
       try {
         var searchParams = req.body.data.search
         if(req.body.data.populate){
-          if(req.body.data.populate.cart == true){
             var users = await userdb.find(searchParams).populate("product")          
-          }
-          if(req.body.data.populate.order == true){
-            var users = await userdb.find(searchParams).populate("orders")
-          }
         }else{
           var users = await userdb.find(searchParams);
         }
