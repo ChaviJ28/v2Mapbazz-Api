@@ -18,7 +18,7 @@ var productSchema = mongoose.Schema({
     category: [
         {type: mongoose.Schema.Types.ObjectId, ref: 'category'}
     ],
-    shop: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop' },
+    shop: { type: mongoose.Schema.Types.ObjectId, ref: 'shop' },
     creadted_on: { type: Date, default: Date.now }
 });
 
