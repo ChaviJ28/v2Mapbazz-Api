@@ -73,7 +73,7 @@ router.post("/register", async(req, res) => {
                 res.status(400).json({ error: "Passwords do not match" });
             }
         } else {
-            res.status(400).json({ error: "corrupt date, try again" });
+            res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
         console.log(err);

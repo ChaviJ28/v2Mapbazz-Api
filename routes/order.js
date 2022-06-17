@@ -29,7 +29,7 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
             await shopdb.create(insertData);
             res.status(200).json({ success: "Order Created" });
         } else {
-            res.status(400).json({ error: "corrupt date, try again" });
+            res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
         console.log(err);

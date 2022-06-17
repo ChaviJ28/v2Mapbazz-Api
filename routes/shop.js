@@ -24,7 +24,7 @@ router.post("/add-shop", middleware.checkAdminAuth, async(req, res) => {
             await shopdb.create(insertData);
             res.status(200).json({ success: "shop addded" });
         } else {
-            res.status(400).json({ error: "corrupt date, try again" });
+            res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
         console.log(err);
@@ -97,7 +97,7 @@ router.post("/get-status", async(req, res) => {
                 res.status(500).json({ error: "id not found" });
             }
         } else {
-            res.status(400).json({ error: "corrupt date, try again" });
+            res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
         console.log(err);

@@ -17,7 +17,7 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
               await userdb.updateOne(searchParams, {$push: {cart: insertData}} );
               res.status(200).json({ success: "product added to cart" });
           } else {
-              res.status(400).json({ error: "corrupt date, try again" });
+              res.status(400).json({ error: "corrupt data, try again" });
           }
       } catch (err) {
           console.log(err);
@@ -33,7 +33,7 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
           user = user[0].toObject();
           res.status(200).json({ data: user.cart });
         } else {
-            res.status(400).json({ error: "corrupt date, try again" });
+            res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
         console.log(err);
@@ -57,7 +57,7 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
             await userdb.updateOne(searchParams, {$push: {cart: insertData}} );
             res.status(200).json({ success: "product added to cart" });
         } else {
-            res.status(400).json({ error: "corrupt date, try again" });
+            res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
         console.log(err);
