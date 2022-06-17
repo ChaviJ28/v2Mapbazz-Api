@@ -19,7 +19,7 @@ router.post("/add-admin", middleware.checkAdminAuth, async(req, res) => {
             await admindb.create(insertData);
             res.status(200).json({ success: "admin added" });
         } else {
-            res.status(400).json({ error: "corrupt date, try again" });
+            res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
         console.log(err)
@@ -38,8 +38,8 @@ router.post("/list-admin", middleware.checkAdminAuth, async(req, res) => {
             admins = await admindb.find(searchParams);
         admins.forEach(admin => {
             admin = admin.toObject();
-            delete user.pwd;
-            delete user.__v;
+            delete admin.pwd;
+            delete admin.__v;
             arr.push(admin)
         })
         res.status(200).json({ data: arr });
