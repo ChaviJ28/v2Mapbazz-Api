@@ -10,7 +10,7 @@ router.post("/add-admin", middleware.checkAdminAuth, async(req, res) => {
             var insertData = {
                 username: req.body.data.username,
                 email: req.body.data.email,
-                full_name: req.body.data.full_name,
+                full_name: req.body.data.fullname,
                 pwd: bcrypt.hashSync(
                     "admin567",
                     parseInt(process.env.HASH_SALT)
