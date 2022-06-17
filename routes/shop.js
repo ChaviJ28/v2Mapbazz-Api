@@ -39,8 +39,7 @@ router.post("/list-shop", async(req, res) => {
         if (req.body.data.search) {
             var searchParams = req.body.data.search
             if (
-                searchParams.hasOwnProperty("is_active") &&
-                req.body.data.populate
+                searchParams.hasOwnProperty("is_active")
             ) {} else {
                 searchParams["is_active"] = true;
             };
