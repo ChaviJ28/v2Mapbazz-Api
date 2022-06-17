@@ -44,18 +44,13 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
 
   //geuter sipa li retourne 1 id r cart la,lerla faire accordingly !
   //pancr faire sa la !
-  router.post("/delete-cart", middleware.checkUserAuth, async(req, res) => {
+  router.post("/update-cart", middleware.checkUserAuth, async(req, res) => {
     try {
         if (req.body.data) {
-          var searchParams = req.body.auth.user.id;
-            var insertData = {
-                product: req.body.data.product_id,
-                quantity: req.body.data.qty,
-                color: req.body.data.color,
-                size: req.body.data.size
-            };
-            await userdb.updateOne(searchParams, {$push: {cart: insertData}} );
-            res.status(200).json({ success: "product added to cart" });
+            var searchData = req.body.auth.user.id;
+            var insertData = req.body.data.cart;
+            await userdb.updateOne(searchData,{ cart: insertData } );
+            res.status(200).json({ success: "cart updated" });
         } else {
             res.status(400).json({ error: "corrupt data, try again" });
         }
