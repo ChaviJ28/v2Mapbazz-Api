@@ -9,11 +9,7 @@ let express = require("express"),
     router.post("/list-user", middleware.checkAdminAuth, async(req, res) => {
       try {
         var searchParams = req.body.data.search
-        if(req.body.data.populate){
-            var users = await userdb.find(searchParams).populate("product")          
-        }else{
           var users = await userdb.find(searchParams);
-        }
         var arr = [];
         users.forEach ((user) => {
           user = user.toObject();
@@ -27,8 +23,8 @@ let express = require("express"),
       }
   });
 
-  //update so middleware to user
-  router.post("/update-user", middleware.checkOwnerAuth, async(req, res) => {
+
+  router.post("/update-user", middleware.checkUserAuth, async(req, res) => {
     try {
         if (req.body.data && req.body.data.id) {
             var searchData = {
@@ -48,5 +44,8 @@ let express = require("express"),
 
 
 //get-status of user
+//et met li vrai
+//bzn mem contentn la dan 1 function, lakoz pu call lor update si sa
+//lor chaque update, update sts lasi false, check sa algo ici la, si li false, laisse pareil else faire li vin true .
 
 module.exports = router;

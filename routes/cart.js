@@ -29,7 +29,7 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
     try {
         if (req.body.data) {
           var searchParams = req.body.auth.user.id;
-          var user = await userdb.find(searchParams).populate('product');
+          var user = await userdb.find(searchParams).populate('cart.product');
           user = user[0].toObject();
           res.status(200).json({ data: user.cart });
         } else {
