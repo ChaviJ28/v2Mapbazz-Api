@@ -27,7 +27,7 @@ router.post("/list-category", async(req, res) => {
         } else {
             var searchParams = {};
         }
-        var categories = await admindb.find(searchParams);
+        var categories = await categorydb.find(searchParams);
         res.status(200).json({ data: categories });
     } catch (err) {
         console.log(err);
