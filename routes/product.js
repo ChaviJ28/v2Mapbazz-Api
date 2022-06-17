@@ -13,12 +13,6 @@ router.post("/add-product", middleware.checkOwnerAuth, async(req, res) => {
       req.body.data.images.forEach(obj => {
         colors.push(obj.color)
       });
-      req.body.data.categories.forEach(cat => {
-        var obj = {
-          id: cat
-        }
-        categories.push(obj)
-      })
         var insertData = {
                 title: req.body.data.title,
                 description: req.body.data.description,
@@ -29,7 +23,7 @@ router.post("/add-product", middleware.checkOwnerAuth, async(req, res) => {
                 stock: req.body.data.stock,
                 shown: false,
                 size: req.body.data.size,
-                category: categories,
+                category: req.body.data.categories,
                 shop: req.body.data.shopid
         };
         await productdb.create(insertData);
