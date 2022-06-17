@@ -34,7 +34,15 @@ exports.checkUserAuth = async(req, res, next) => {
                 res.status(401).json({ error: "Forbidden Access" });
             }
         } else if (req.body.auth.user.access_type == "user") {
-            //check if credentials exist in user
+            var searchParams = {
+                "username": req.body.auth.user.username,
+            };
+            var users = await userdb.find(searchParams);
+            if (users.length > 0) {
+                next();
+            } else {
+                res.status(401).json({ error: "Forbidden Access" });
+            }
         } else {
             res.status(400).json({ error: "corrupt userdata, login again" });
         }
@@ -112,4 +120,5 @@ exports.usernameExists = async(req, res, next) => {
 }
 
 //check app-user login
+//KIETER SA GGT ?
 exports.checkCient = async(req, res, next) => {}
