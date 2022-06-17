@@ -1,3 +1,7 @@
+let shopdb = require("../models/shop");
+let admindb = require("../models/admin");
+let userdb = require("../models/user");
+
 // middleware for checking api_key
 exports.checkApiKey = async(req, res, next) => {
     if (
