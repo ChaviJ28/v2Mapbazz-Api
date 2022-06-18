@@ -1,9 +1,8 @@
-const user = require("../models/user");
-
 let express = require("express"),
     router = express.Router(),
     bcrypt = require("bcrypt"),
     middleware = require("../middleware/index"),
+    logdb = require("../models/log");
     userdb = require("../models/user");
 
     router.post("/list-user", middleware.checkAdminAuth, async(req, res) => {
@@ -18,7 +17,8 @@ let express = require("express"),
         })
         res.status(200).json({ data: arr });
       } catch (err) {
-          console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
           res.status(500).json({ error: err });
       }
   });
@@ -39,6 +39,7 @@ let express = require("express"),
             res.status(500).json({ error: "id not found" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -63,7 +64,8 @@ router.post("/get-status", async(req, res) => {
           res.status(400).json({ error: "corrupt data, try again" });
       }
   } catch (err) {
-      console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
       res.status(500).json({ error: err });
   }
 });
@@ -88,7 +90,8 @@ router.post("/update-status", async(req, res) => {
           res.status(400).json({ error: "corrupt data, try again" });
       }
   } catch (err) {
-      console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
       res.status(500).json({ error: err });
   }
 });
@@ -110,7 +113,8 @@ async function updateUserActive(id){
       return 'err'
     }
   }catch(err){
-    console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
     res.status(500).json({ error: "checkUserValues() err" });
     return 'err'
   }

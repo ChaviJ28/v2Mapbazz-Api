@@ -2,6 +2,7 @@ let express = require("express"),
     router = express.Router(),
     bcrypt = require("bcrypt"),
     middleware = require("../middleware/index"),
+    logdb = require("../models/log");
     shopdb = require("../models/shop");
 
 router.post("/add-shop", middleware.checkAdminAuth, async(req, res) => {
@@ -27,6 +28,7 @@ router.post("/add-shop", middleware.checkAdminAuth, async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: "Please Try Again later" });
     }
@@ -59,6 +61,7 @@ router.post("/list-shop", async(req, res) => {
         });
         res.status(200).json({ data: arr });
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -78,6 +81,7 @@ router.post("/update-shop", middleware.checkOwnerAuth, async(req, res) => {
             res.status(500).json({ error: "id not found" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -100,6 +104,7 @@ router.post("/get-status", async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -119,6 +124,7 @@ router.post("/update-status", middleware.checkAdminAuth, async(req, res) => {
             res.status(500).json({ error: "id not found" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }

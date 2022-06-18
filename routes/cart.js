@@ -2,6 +2,7 @@ let express = require("express"),
     router = express.Router(),
     bcrypt = require("bcrypt"),
     middleware = require("../middleware/index"),
+    logdb = require("../models/log");
     userdb = require("../models/user");
 
 router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
@@ -20,7 +21,8 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
               res.status(400).json({ error: "corrupt data, try again" });
           }
       } catch (err) {
-          console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
           res.status(500).json({ error: "Please Try Again later" });
       }
   });
@@ -36,6 +38,7 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: "Please Try Again later" });
     }
@@ -57,6 +60,7 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: "Please Try Again later" });
     }

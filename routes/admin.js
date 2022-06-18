@@ -2,6 +2,7 @@ let express = require("express"),
     router = express.Router(),
     bcrypt = require("bcrypt"),
     middleware = require("../middleware/index"),
+    logdb = require("../models/log");
     admindb = require("../models/admin");
 
 router.post("/add-admin", middleware.checkAdminAuth, async(req, res) => {
@@ -22,7 +23,8 @@ router.post("/add-admin", middleware.checkAdminAuth, async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
-        console.log(err)
+    await logdb.create({title: err});
+    console.log(err)
         res.status(500).json({ error: "Please Try Again later" });
     }
 });
@@ -44,6 +46,7 @@ router.post("/list-admin", middleware.checkAdminAuth, async(req, res) => {
         })
         res.status(200).json({ data: arr });
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: "Please Try Again later" });
     }

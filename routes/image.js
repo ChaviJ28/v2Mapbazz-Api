@@ -1,6 +1,7 @@
 let express = require("express"),
     router = express.Router(),
     multer = require("multer"),
+    logdb = require("../models/log");
     middleware = require("../middleware/index");
 
 const storage = multer.diskStorage({
@@ -27,6 +28,7 @@ router.post("/add-image", upload.array("image"), async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: "Please Try Again later" });
     }

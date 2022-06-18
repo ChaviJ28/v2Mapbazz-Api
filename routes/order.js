@@ -32,6 +32,7 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: "Please Try Again later" });
     }
@@ -48,7 +49,8 @@ router.post("/list-order", middleware.checkUserAuth, async(req, res) => {
   var orders = await orderdb.find(searchParams).populate('product');
   res.status(200).json({ data: orders });
   } catch (err) {
-      console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
       res.status(500).json({ error: "Please Try Again later" });
   }
 });
@@ -78,7 +80,8 @@ async function getProductPrice(id) {
     return 'err'
   }
   }catch(err){
-    console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
     res.status(500).json({ error: "getProductPrice() err" });
     return 'err'
 

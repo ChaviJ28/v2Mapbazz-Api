@@ -4,6 +4,7 @@ let express = require("express"),
     middleware = require("../middleware/index"),
     admindb = require("../models/admin"),
     userdb = require("../models/user"),
+    logdb = require("../models/log");
     shopdb = require("../models/shop");
 
 router.post("/login", async(req, res) => {
@@ -56,6 +57,7 @@ router.post("/login", async(req, res) => {
             }
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -88,6 +90,7 @@ router.post("/register", async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -146,6 +149,7 @@ router.post("/change-password", middleware.checkUserAuth,  async(req, res) => {
             res.status(400).json({ error: "corrupt data" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -163,6 +167,7 @@ async function verifyPasswords(old, p1, p2, current) {
             return "Passwords do not match"
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: "verifyPasswords() err" });
     }
@@ -175,6 +180,7 @@ async function incrementLoginCount(db, id) {
         var newCount = record.owner.login_count + 1;
         db.updateOne({ _id: id }, { owner: { login_count: newCount } })
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: "incrementLoginCount() err" });
     }

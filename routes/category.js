@@ -1,6 +1,7 @@
 let express = require("express"),
     router = express.Router(),
     middleware = require("../middleware/index"),
+    logdb = require("../models/log");
     categorydb = require("../models/category");
 
 router.post("/add-category", middleware.checkAdminAuth, async(req, res) => {
@@ -15,6 +16,7 @@ router.post("/add-category", middleware.checkAdminAuth, async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -30,6 +32,7 @@ router.post("/list-category", async(req, res) => {
         var categories = await categorydb.find(searchParams);
         res.status(200).json({ data: categories });
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }
@@ -50,6 +53,7 @@ router.post("/update-category", middleware.checkAdminAuth, async(req, res) => {
             res.status(400).json({ error: "corrupt data, try again" });
         }
     } catch (err) {
+        await logdb.create({title: err});
         console.log(err);
         res.status(500).json({ error: err });
     }

@@ -3,6 +3,7 @@ let express = require("express"),
     bcrypt = require("bcrypt"),
     middleware = require("../middleware/index"),
     shopdb = require("../models/shop"),
+    logdb = require("../models/log");
     productdb = require("../models/product");
 
 router.post("/add-product", middleware.checkOwnerAuth, async(req, res) => {
@@ -38,7 +39,8 @@ router.post("/add-product", middleware.checkOwnerAuth, async(req, res) => {
         res.status(400).json({ error: "corrupt data, try again" });
     }
   } catch (err) {
-      console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
       res.status(500).json({ error: "Please Try Again later" });
   }
 });
@@ -62,7 +64,8 @@ router.post("/list-product", async(req, res) => {
     }
     res.status(200).json({ data: products });
 } catch (err) {
-    console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
     res.status(500).json({ error: err });
 }
 });
@@ -81,7 +84,8 @@ router.post("/update-product",middleware.checkOwnerAuth, async(req, res) => {
         res.status(500).json({ error: "id not found" });
     }
   } catch (err) {
-      console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
       res.status(500).json({ error: err });
   }
 });
@@ -103,7 +107,8 @@ router.post("/is-show", async(req, res) => {
         res.status(400).json({ error: "corrupt data, try again" });
     }
   } catch (err) {
-      console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
       res.status(500).json({ error: err });
   }
 });
@@ -121,7 +126,8 @@ router.post("/set-show", middleware.checkOwnerAuth, async(req, res) => {
         res.status(500).json({ error: "id not found" });
     }
   } catch (err) {
-      console.log(err);
+        await logdb.create({title: err});
+        console.log(err);
       res.status(500).json({ error: err });
   }
 });
