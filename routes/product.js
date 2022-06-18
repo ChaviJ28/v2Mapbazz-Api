@@ -8,15 +8,21 @@ let express = require("express"),
 router.post("/add-product", middleware.checkOwnerAuth, async(req, res) => {
   try {
     if (req.body.data) {
-      var colors = [];
+      var colors = [], price;
       var categories = [];
       req.body.data.images.forEach(obj => {
         colors.push(obj.color)
       });
-        var insertData = {
+      if( req.body.data.discount && req.body.data.discount != 0){
+        price = req.body.data.price*((100 - req.body.data.discount)/100)
+      } else {
+        price = req.body.data.price;
+      }
+      var insertData = {
                 title: req.body.data.title,
                 description: req.body.data.description,
-                price: req.body.data.price,
+                original_price: req.body.data.price,
+                price: price,
                 discount: req.body.data.discount,
                 images: req.body.data.images,
                 colors: colors,
