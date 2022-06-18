@@ -25,7 +25,6 @@ router.post("/login", async(req, res) => {
         } else {
             searchParams = {
                 "owner.username": req.body.data.username,
-
             };
             var users = await shopdb.find(searchParams);
             if (users.length > 0) {
@@ -40,7 +39,20 @@ router.post("/login", async(req, res) => {
                     res.status(401).json({ error: "Wrong Password" });
                 }
             } else {
-                console.log("for app_user check");
+                var users = await userdb.find(searchParams);
+                if (users.length > 0) {
+                    var user = users[0].toObject();
+                    if (bcrypt.compareSync(req.body.data.password, user.pwd)) {
+                        delete user.pwd;
+                        delete user.__v;
+                        user.access_type = "user";
+                        res.status(200).json({ data: user });
+                    } else {
+                        res.status(401).json({ error: "Wrong Password" });
+                    }
+                } else {
+                    res.status(400).json({ error: "User does not exist" });
+                }
             }
         }
     } catch (err) {

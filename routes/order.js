@@ -65,7 +65,8 @@ router.post("/list-owner-orders", middleware.checkOwnerAuth, async(req, res) => 
 
 
 async function getProductPrice(id) {
-  var products = await productdb.find({_id: id})
+  try{
+    var products = await productdb.find({_id: id})
   if(products.length > 0){
     var product = products[0];
     if( product.discount == 0){
@@ -75,6 +76,12 @@ async function getProductPrice(id) {
     }
   }else{
     return 'err'
+  }
+  }catch(err){
+    console.log(err);
+    res.status(500).json({ error: "getProductPrice() err" });
+    return 'err'
+
   }
 }
 

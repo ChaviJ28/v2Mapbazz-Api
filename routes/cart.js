@@ -44,6 +44,8 @@ router.post("/add-cart", middleware.checkUserAuth, async(req, res) => {
 
   //geuter sipa li retourne 1 id r cart la,lerla faire accordingly !
   //pancr faire sa la !
+  //overwite array of cart la each time la !
+  //bzn change
   router.post("/update-cart", middleware.checkUserAuth, async(req, res) => {
     try {
         if (req.body.data) {
