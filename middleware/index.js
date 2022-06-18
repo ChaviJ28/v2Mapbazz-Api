@@ -110,13 +110,20 @@ exports.checkAdminAuth = async(req, res, next) => {
 exports.usernameExists = async(req, res, next) => {
     if (req.body.data && req.body.data.shop && req.body.data.shop.username) {
         var searchData = {
-            "owner.username": req.body.data.shop.username
+            "owner.username": req.body.data.username
         }
         var records = await shopdb.find(searchData);
-        if (results.length > 0) {
+        if (records.length > 0) {
             //check pu user
-            //si user si zero, lerla ==
-            // res.status(400).json({ error: "Username Taken" });
+            searchData = {
+                "username": req.body.data.username
+            }
+            records = await userdb.find(searchData);
+            if (records.length > 0) {
+                res.status(400).json({ error: "Username Taken" });
+            }else{
+                next();
+            }
         }else{
             next();
         }
