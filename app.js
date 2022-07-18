@@ -32,7 +32,7 @@ app.get("*", (req, res) => {
 
 
 const middleware = require("./middleware/index.js");
-app.use(middleware.checkApiKey);
+// app.use(middleware.checkApiKey);
 
 const authRoutes = require("./routes/auth.js");
 const imageRoutes = require("./routes/image.js");
