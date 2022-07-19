@@ -17,7 +17,7 @@ var shopSchema = mongoose.Schema({
     contact: Object,
     banner: [String],
     category: [
-        {type: mongoose.Schema.Types.ObjectId, ref: 'Category'}
+        {type: mongoose.Schema.Types.ObjectId, ref: 'category'}
     ],
 });
 
