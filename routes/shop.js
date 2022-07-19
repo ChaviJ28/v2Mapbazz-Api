@@ -48,7 +48,7 @@ router.post("/list-shop", async(req, res) => {
         } else {
             var searchParams = { is_active: true };
         }
-        var shops = await shopdb.find(searchParams),
+        var shops = await shopdb.find(searchParams).populate('category'),
             arr = [];
         shops.forEach((shop) => {
             shop = shop.toObject();
