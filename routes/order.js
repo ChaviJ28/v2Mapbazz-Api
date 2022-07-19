@@ -26,7 +26,7 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
                 del_comment: req.body.data.delivery_comment,
                 items: req.body.data.items
             };
-            await shopdb.create(insertData);
+            await orderdb.create(insertData);
             res.status(200).json({ success: "Order Created" });
         } else {
             res.status(400).json({ error: "corrupt data, try again" });

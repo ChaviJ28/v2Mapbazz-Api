@@ -43,6 +43,7 @@ const productRoutes = require("./routes/product.js");
 const userRoutes = require("./routes/user.js");
 const cartRoutes = require("./routes/cart.js");
 const orderRoutes = require("./routes/order.js");
+const logRoutes = require("./routes/logs.js");
 
 app.use("/api", authRoutes);
 app.use("/api/image", imageRoutes);
@@ -53,6 +54,7 @@ app.use("/api/product", productRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/user", cartRoutes);
 app.use("/api/order", orderRoutes);
+app.use("/api/log", logRoutes);
 
 app.listen(port, (req, res) => {
     console.log("Node on " + port + ", " + process.env.NODE_ENV + " environment");
