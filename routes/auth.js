@@ -12,7 +12,9 @@ router.post("/login", async(req, res) => {
         var searchParams = {
             username: req.body.data.username
         };
+        console.log(searchParams);
         var users = await admindb.find(searchParams);
+        console.log(users.length);
         if (users.length > 0) {
             var user = users[0].toObject();
             if (bcrypt.compareSync(req.body.data.password, user.pwd)) {
@@ -28,6 +30,8 @@ router.post("/login", async(req, res) => {
                 "owner.username": req.body.data.username,
             };
             var users = await shopdb.find(searchParams);
+        console.log(users.length);
+
             if (users.length > 0) {
                 var user = users[0].toObject();
                 user = user.owner;
@@ -41,6 +45,8 @@ router.post("/login", async(req, res) => {
                 }
             } else {
                 var users = await userdb.find(searchParams);
+        console.log(users.length);
+
                 if (users.length > 0) {
                     var user = users[0].toObject();
                     if (bcrypt.compareSync(req.body.data.password, user.pwd)) {
@@ -56,6 +62,38 @@ router.post("/login", async(req, res) => {
                 }
             }
         }
+    } catch (err) {
+        await logdb.create({title: err});
+        console.log(err);
+        res.status(500).json({ error: err });
+    }
+});
+
+router.post("/app-login", async(req, res) => {
+    try {
+        var searchParams = {
+            username: req.body.data.username
+        };
+        var users = await userdb.find(searchParams);
+        found = false;
+                    users.forEach(user => {
+                        user = user.toObject();
+                        if(user.username === req.body.data.username){
+                            if (bcrypt.compareSync(req.body.data.password, user.pwd)) {
+                                delete user.pwd;
+                                delete user.__v;
+                                user.access_type = "user";
+                                res.status(200).json({ data: user });
+                            } else {
+                                res.status(401).json({ error: "Wrong Password" });
+                            }
+                            found = true;
+                            return true;
+                        }
+                    })
+                    if(!found){
+                        res.status(400).json({ error: "User does not exist" });
+                    }
     } catch (err) {
         await logdb.create({title: err});
         console.log(err);
