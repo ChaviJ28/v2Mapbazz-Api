@@ -13,3 +13,5 @@ router.post("/list-log", middleware.checkAdminAuth, async(req, res) => {
     res.status(500).json({ error: err });
   }
 })
+
+module.exports = router;
