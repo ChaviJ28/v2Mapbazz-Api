@@ -3,7 +3,8 @@ let express = require("express"),
     bcrypt = require("bcrypt"),
     middleware = require("../middleware/index"),
     productdb = require("../models/order"),
-    orderdb = require("../models/order");
+    orderdb = require("../models/order"),
+    logdb = require("../models/log");
 
 router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
     try {
