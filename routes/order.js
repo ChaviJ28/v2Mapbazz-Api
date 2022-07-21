@@ -12,7 +12,7 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
           //calculate price ici
           var total = 0;
           req.body.data.items.forEach(item => {
-            var price = getProductPrice(item.product);
+            var price = await getProductPrice(item.product);
             console.log(price);
             total += price;
           });
