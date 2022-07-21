@@ -13,6 +13,7 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
           var total = 0;
           req.body.data.items.forEach(item => {
             var price = getProductPrice(item.product);
+            console.log(price);
             total += price;
           });
           console.log(total)
