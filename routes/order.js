@@ -16,8 +16,8 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
           //   console.log(price);
           //   total += price;
           // });
-          console.log(total)
-          console.log(typeof total)
+          // console.log(total)
+          // console.log(typeof total)
             var insertData = {
                 user: req.body.auth.user.id,
                 // address: {
