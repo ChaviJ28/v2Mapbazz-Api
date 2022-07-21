@@ -15,6 +15,8 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
             var price = getProductPrice(item.product);
             total += price;
           });
+          console.log(total)
+          console.log(typeof total)
             var insertData = {
                 user: req.body.auth.user.id,
                 // address: {
@@ -24,7 +26,7 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
                 // payment_type: req.body.data.payment_type,
                 paid_sts: req.body.data.paid_sts,
                 del_status: false,
-                price: total,
+                price:  total,
                 // del_comment: req.body.data.delivery_comment,
                 items: req.body.data.items
             };
