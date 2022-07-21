@@ -7,7 +7,7 @@ let express = require("express"),
 
 router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
     try {
-        if (req.body.data && req.body.data.items > 0) {
+        if (req.body.data && req.body.data.items.length > 0) {
           //calculate price ici
           var total = 0;
           req.body.data.items.forEach(item => {
