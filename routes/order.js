@@ -79,11 +79,13 @@ async function getProductPrice(id) {
     var products = await productdb.find({_id: id})
   if(products.length > 0){
     var product = products[0];
-    if( product.discount == 0){
-      return product.price;
-    } else {
-      return product.price*((100 - discount)/100)
-    }
+    console.log("asd"+product.price);
+    return product.price;
+    // if( product.discount == 0){
+    //   return product.price;
+    // } else {
+    //   return product.price*((100 - discount)/100)
+    // }
   }else{
     return 'err'
   }
