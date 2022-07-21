@@ -47,7 +47,7 @@ router.post("/list-order", middleware.checkUserAuth, async(req, res) => {
   } else {
       var searchParams = {};
   }
-  var orders = await orderdb.find(searchParams).populate('product');
+  var orders = await orderdb.find(searchParams);
   res.status(200).json({ data: orders });
   } catch (err) {
         await logdb.create({title: err});
