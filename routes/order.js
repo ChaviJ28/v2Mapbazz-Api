@@ -11,19 +11,19 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
           //calculate price ici
           var total = 0;
           req.body.data.items.forEach(item => {
-            var price = getProductPrice(item.id);
+            var price = getProductPrice(item.product.id);
             total += price;
           });
             var insertData = {
                 user: req.body.auth.user.id,
-                address: {
-                  x: req.body.data.x,
-                  y: req.body.data.y
-                },
-                payment_type: req.body.data.payment_type,
-                paid_sts: false,
+                // address: {
+                //   x: req.body.data.x,
+                //   y: req.body.data.y
+                // },
+                // payment_type: req.body.data.payment_type,
+                paid_sts: req.body.data.paid_sts,
                 del_status: false,
-                del_comment: req.body.data.delivery_comment,
+                // del_comment: req.body.data.delivery_comment,
                 items: req.body.data.items
             };
             await orderdb.create(insertData);
