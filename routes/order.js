@@ -11,7 +11,7 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
         if (req.body.data && req.body.data.items.length > 0) {
           //calculate price ici
           var total = 0;
-          req.body.data.items.forEach(item => {
+          req.body.data.items.forEach(async item => {
             var price = await getProductPrice(item.product);
             console.log(price);
             total += price;
