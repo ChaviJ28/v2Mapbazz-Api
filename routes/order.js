@@ -24,6 +24,7 @@ router.post("/add-order", middleware.checkUserAuth, async(req, res) => {
                 // payment_type: req.body.data.payment_type,
                 paid_sts: req.body.data.paid_sts,
                 del_status: false,
+                price: total,
                 // del_comment: req.body.data.delivery_comment,
                 items: req.body.data.items
             };
@@ -48,6 +49,9 @@ router.post("/list-order", middleware.checkUserAuth, async(req, res) => {
       var searchParams = {};
   }
   var orders = await orderdb.find(searchParams);
+  if(req.body.data.populate == true){
+
+  }
   res.status(200).json({ data: orders });
   } catch (err) {
         await logdb.create({title: err});
