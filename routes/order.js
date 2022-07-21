@@ -79,9 +79,9 @@ async function getProductPrice(id) {
   if(products.length > 0){
     var product = products[0];
     if( product.discount == 0){
-      return price;
+      return product.price;
     } else {
-      return price*((100 - discount)/100)
+      return product.price*((100 - discount)/100)
     }
   }else{
     return 'err'
